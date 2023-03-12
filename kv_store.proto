@@ -1,0 +1,34 @@
+// kv_store.proto
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.grpc";
+option java_outer_classname = "KVStoreProto";
+
+package kv_store;
+
+message KeyValue {
+    string key = 1;
+    string name = 2;
+    string value = 3;
+}
+
+message Key {
+    string key = 1;
+}
+
+message SuccessResponse {
+    bool success = 1;
+}
+
+message Replica {
+    string ip_address = 1;
+    int32 port = 2;
+}
+
+service KeyValueStore {
+    rpc write (KeyValue) returns (Key) {}
+    rpc read (Key) returns (KeyValue) {}
+    rpc delete (Key) returns (SuccessResponse) {}
+}

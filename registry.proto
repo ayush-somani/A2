@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package registry;
+
+message Process {
+  string ip = 1;
+  int32 port = 2;
+}
+
+message RegisterRequest {
+  string ip = 1;
+  int32 port = 2;
+}
+
+message RegisterResponse {
+  bool is_primary = 1;
+  string primary_server_ip = 2;
+  int32 primary_server_port = 3;
+}
+
+message GetProcessesRequest {
+}
+
+message GetProcessesResponse {
+  repeated Process processes = 1;
+}
+
+message UnregisterRequest {
+  string process_id = 1;
+}
+
+message UnregisterResponse {
+}
+
+service Registry {
+  rpc Register(RegisterRequest) returns (RegisterResponse) {}
+  rpc GetProcesses(GetProcessesRequest) returns (GetProcessesResponse) {}
+  rpc Unregister(UnregisterRequest) returns (UnregisterResponse) {}
+}
